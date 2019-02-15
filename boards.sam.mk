@@ -6,6 +6,7 @@ LFLAGS_SAM=$(LFLAGS) template_sam.c -T ld.sam.basic
 
 # FIXME what are default clock speeds?
 SAMD_CFLAGS=$(M0P_FLAGS) -DSAMD -DLITTLE_BIT=100000 $(LFLAGS_SAM) -lopencm3_samd
+SAMR_CFLAGS=$(M0P_FLAGS) -DSAMD -DLITTLE_BIT=100000 $(LFLAGS_SAM) -lopencm3_samr
 
 # FIXME - support led2
 define RAWMakeBoard
@@ -25,4 +26,9 @@ define samdboard
 	$(call MakeBoard,$(1),$(2),$(3),$(SAMD_CFLAGS),samd)
 endef
 
+define samrboard
+	$(call MakeBoard,$(1),$(2),$(3),$(SAMR_CFLAGS),samr)
+endef
+
 $(eval $(call samdboard,samd10-xplained-mini,PORTA,9))
+$(eval $(call samdboard,samr34-xplained,PORTA,18,PORTA,1i9))
